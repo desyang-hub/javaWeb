@@ -7,7 +7,7 @@ public class Connect{
     public Connect(Socket socket) {
         client = socket;
 
-        new Thread(new SendHelper(socket)).start();
+//        new Thread(new SendHelper(socket)).start();
         new Thread(new ReceiveHelper(socket)).start();
     }
 

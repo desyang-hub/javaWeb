@@ -7,6 +7,7 @@ public class ReceiveHelper implements Runnable{
 
     Socket socket;
     DataInputStream in;
+    DataOutputStream out;
     public ReceiveHelper(Socket socket) {
         this.socket = socket;
         init();
@@ -15,6 +16,8 @@ public class ReceiveHelper implements Runnable{
     public void init() {
         try{
             in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            out.writeUTF("服务器繁忙，稍后为您服务");
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -25,7 +28,7 @@ public class ReceiveHelper implements Runnable{
         while(true) {
             try {
                 String msg = in.readUTF();
-                System.out.println("发送方：" + msg);
+                System.out.println(socket.getInetAddress().getHostName() + "：" + msg);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(0);
